@@ -166,9 +166,9 @@ def main():
             print("python milvus_toolkit.py test.py -q <nq> -k <topk> -c <table> -c -s")
             sys.exit()
         elif opt_name == "--server":
-            global SERVER_ADDR = opt_value
+            SERVER_ADDR = opt_value
         elif opt_name == "--port":
-            global SERVER_PORT = int(opt_value)           
+            SERVER_PORT = int(opt_value)           
         elif opt_name == "--table":
             table_name = opt_value
         elif opt_name == "--dim":

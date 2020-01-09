@@ -10,6 +10,7 @@ from milvus import *
 SERVER_ADDR = "0.0.0.0"
 SERVER_PORT = 19530
 
+FILE_PATH = ''
 FILE_NPY_PATH = 'bvecs_data'
 FILE_CSV_PATH = '/data/lym/dataset_test/csv_dataset'
 FILE_FVECS_PATH = '/mnt/data/base.fvecs'
@@ -40,7 +41,7 @@ def normaliz_data(vec_list):
 
 
 def load_npy_data(filename):
-    filename = FILE_NPY_PATH + "/" + filename
+    filename = (FILE_NPY_PATH if len(FILE_PATH) == 0 else FILE_PATH) + "/" + filename
     data = np.load(filename) 
     if is_uint8:
         data = (data+0.5)/255
@@ -52,7 +53,7 @@ def load_npy_data(filename):
 
 def load_csv_data(filename):
     import pandas as pd
-    filename = FILE_CSV_PATH + "/" + filename
+    filename = (FILE_CSV_PATH if len(FILE_PATH) == 0 else FILE_PATH) + "/" + filename
     data = pd.read_csv(filename, header=None)
     data = np.array(data)
     if is_uint8:
@@ -105,7 +106,7 @@ def connect_milvus_server():
 
 
 def npy_to_milvus(MILVUS_TABLE):
-    filenames = os.listdir(FILE_NPY_PATH)
+    filenames = os.listdir(FILE_NPY_PATH if len(FILE_PATH) == 0 else FILE_PATH)
     filenames.sort()
     file_index = 0
     for filename in filenames:
@@ -121,7 +122,7 @@ def npy_to_milvus(MILVUS_TABLE):
         file_index = file_index + 1
 
 def csv_to_milvus(MILVUS_TABLE):
-    filenames = os.listdir(FILE_CSV_PATH)
+    filenames = os.listdir(FILE_CSV_PATH if len(FILE_PATH) == 0 else FILE_PATH)
     filenames.sort()
     file_index = 0
     for filename in filenames:
@@ -143,7 +144,7 @@ def main(argv):
         opts, args = getopt.getopt(
             sys.argv[1:],
             "ncfbt:",
-            ["npy", "csv", "fvecs", "bvecs","table="],
+            ["npy", "csv", "fvecs", "bvecs","table=","server=","port=", "file="],
         )
         # print(opts)
     except getopt.GetoptError:
@@ -154,6 +155,12 @@ def main(argv):
         if opt_name in ("-t", "--table"):
             MILVUS_TABLE = opt_value
             PG_TABLE_NAME = opt_value
+        elif opt_name == "--server":
+            global SERVER_ADDR = opt_value
+        elif opt_name == "--port":
+            global SERVER_PORT = int(opt_value)    
+        elif opt_name == "--file":
+            global FILE_PATH = opt_value     
         elif opt_name in ("-n", "--npy"):
             connect_milvus_server()
             npy_to_milvus(MILVUS_TABLE)
@@ -165,7 +172,7 @@ def main(argv):
             connect_milvus_server()
             count = 0
             while count < (FVECS_VEC_NUM // FVECS_BASE_LEN):
-                vectors = load_fvecs_data(FILE_FVECS_PATH, FVECS_BASE_LEN, count)
+                vectors = load_fvecs_data(FILE_FVECS_PATH  if len(FILE_PATH) == 0 else FILE_PATH, FVECS_BASE_LEN, count)
                 print(count*FVECS_BASE_LEN, " ", (count+1)*FVECS_BASE_LEN)
                 vectors_ids = [id for id in range(count*FVECS_BASE_LEN,(count+1)*FVECS_BASE_LEN)]                
                 time_add_start = time.time()
@@ -178,7 +185,7 @@ def main(argv):
             connect_milvus_server()
             count = 0
             while count < (FVECS_VEC_NUM // FVECS_BASE_LEN):
-                vectors = load_bvecs_data(FILE_BVECS_PATH, FVECS_BASE_LEN, count)
+                vectors = load_bvecs_data(FILE_BVECS_PATH  if len(FILE_PATH) == 0 else FILE_PATH, FVECS_BASE_LEN, count)
                 print(count*FVECS_BASE_LEN, " ", (count+1)*FVECS_BASE_LEN)
                 vectors_ids = [id for id in range(count*FVECS_BASE_LEN,(count+1)*FVECS_BASE_LEN)]                
                 time_add_start = time.time()

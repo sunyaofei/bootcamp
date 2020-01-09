@@ -155,7 +155,7 @@ def main():
             sys.argv[1:],
             "chdsn",
             ["help", "table=", "dim=", "index=", "nq=", "show", "describe", "delete", "build", "drop_index", "server_version",
-             "client_version", "rows", "normal", "nprobe=", "has", "desc_index"]
+             "client_version", "rows", "normal", "nprobe=", "has", "desc_index", "server=", "port="]
         )
     except getopt.GetoptError:
         print("Usage: python milvus_toolkit.py -q <nq> -k <topk> -c <table> -s")
@@ -165,6 +165,10 @@ def main():
         if opt_name in ("-h", "--help"):
             print("python milvus_toolkit.py test.py -q <nq> -k <topk> -c <table> -c -s")
             sys.exit()
+        elif opt_name == "--server":
+            global SERVER_ADDR = opt_value
+        elif opt_name == "--port":
+            global SERVER_PORT = int(opt_value)           
         elif opt_name == "--table":
             table_name = opt_value
         elif opt_name == "--dim":

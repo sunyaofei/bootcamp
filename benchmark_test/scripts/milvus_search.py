@@ -119,7 +119,7 @@ def main():
         opts, args = getopt.getopt(
             sys.argv[1:],
             "hst:q:k:n:",
-            ["help", "search", "table=", "nq=", "topk=", "nprobe="],
+            ["help", "search", "table=", "nq=", "topk=", "nprobe=","server=","port="],
         )
     except getopt.GetoptError:
         print("Usage: test.py --table <table_name> [-q <nq>] -k <topk> -s")
@@ -130,6 +130,10 @@ def main():
         if opt_name in ("-h", "--help"):
             print("test.py -table <table_name> [-q <nq>] -k <topk> -s")
             sys.exit()
+        elif opt_name == "--server":
+            global SERVER_ADDR = opt_value
+        elif opt_name == "--port":
+            global SERVER_PORT = int(opt_value)   
         elif opt_name in ("-t", "--table"):
             table_name = opt_value
         elif opt_name in ("-q", "--nq"):

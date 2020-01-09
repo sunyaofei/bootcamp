@@ -131,9 +131,11 @@ def main():
             print("test.py -table <table_name> [-q <nq>] -k <topk> -s")
             sys.exit()
         elif opt_name == "--server":
-            global SERVER_ADDR = opt_value
+            global SERVER_ADDR
+            SERVER_ADDR = opt_value
         elif opt_name == "--port":
-            global SERVER_PORT = int(opt_value)   
+            global SERVER_PORT 
+            SERVER_PORT = int(opt_value)  
         elif opt_name in ("-t", "--table"):
             table_name = opt_value
         elif opt_name in ("-q", "--nq"):

@@ -156,11 +156,14 @@ def main(argv):
             MILVUS_TABLE = opt_value
             PG_TABLE_NAME = opt_value
         elif opt_name == "--server":
-            global SERVER_ADDR = opt_value
+            global SERVER_ADDR
+            SERVER_ADDR = opt_value
         elif opt_name == "--port":
-            global SERVER_PORT = int(opt_value)    
+            global SERVER_PORT
+            SERVER_PORT = int(opt_value)        
         elif opt_name == "--file":
-            global FILE_PATH = opt_value     
+            global FILE_PATH
+            FILE_PATH = opt_value
         elif opt_name in ("-n", "--npy"):
             connect_milvus_server()
             npy_to_milvus(MILVUS_TABLE)

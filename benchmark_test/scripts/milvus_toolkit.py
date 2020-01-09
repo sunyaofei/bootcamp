@@ -170,7 +170,7 @@ def main():
             SERVER_ADDR = opt_value
         elif opt_name == "--port":
             global SERVER_PORT
-            SERVER_PORT = int(opt_value)           
+            SERVER_PORT = int(opt_value)        
         elif opt_name == "--table":
             table_name = opt_value
         elif opt_name == "--dim":

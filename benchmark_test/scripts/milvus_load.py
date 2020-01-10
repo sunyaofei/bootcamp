@@ -178,7 +178,7 @@ def main(argv):
             count = 0
             while count < (FVECS_VEC_NUM // FVECS_BASE_LEN):
                 vectors = load_fvecs_data(FILE_FVECS_PATH  if len(FILE_PATH) == 0 else FILE_PATH, FVECS_BASE_LEN, count)
-                if vectors is None
+                if vectors is None:
                     sys.exit(0)
                 print(count*FVECS_BASE_LEN, " ", (count+1)*FVECS_BASE_LEN)
                 vectors_ids = [id for id in range(count*FVECS_BASE_LEN,(count+1)*FVECS_BASE_LEN)]                

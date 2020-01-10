@@ -68,6 +68,8 @@ def load_fvecs_data(fname, base_len, idx):
     begin_num = base_len * idx
     x = np.memmap(fname, dtype='uint8', mode='r')
     d = x[:4].view('int32')[0]
+    print("d=", d)
+    return None
     data = x.view('float32').reshape(-1, d + 1)[begin_num:(begin_num + base_len), 1:]
     if is_uint8:
         data = (data+0.5)/255
@@ -176,6 +178,8 @@ def main(argv):
             count = 0
             while count < (FVECS_VEC_NUM // FVECS_BASE_LEN):
                 vectors = load_fvecs_data(FILE_FVECS_PATH  if len(FILE_PATH) == 0 else FILE_PATH, FVECS_BASE_LEN, count)
+                if vectors is None
+                    sys.exit(0)
                 print(count*FVECS_BASE_LEN, " ", (count+1)*FVECS_BASE_LEN)
                 vectors_ids = [id for id in range(count*FVECS_BASE_LEN,(count+1)*FVECS_BASE_LEN)]                
                 time_add_start = time.time()

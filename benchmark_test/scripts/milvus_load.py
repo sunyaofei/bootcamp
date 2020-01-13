@@ -113,10 +113,14 @@ def npy_to_milvus(MILVUS_TABLE):
     file_index = 0
     for filename in filenames:
         vectors = load_npy_data(filename)
+        print("file=", filename, " count=", len(vectors))
         vectors_ids = []
+        t=""
         for i in range(len(vectors)):
             location = '8' + '%04d'%file_index  + '%06d'%i
+            t=location
             vectors_ids.append(int(location))
+        print("locaton:", t)
         time_add_start = time.time()
         status, ids = milvus.add_vectors(table_name=MILVUS_TABLE, records=vectors, ids=vectors_ids)
         time_add_end = time.time()

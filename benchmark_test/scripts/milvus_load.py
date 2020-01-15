@@ -122,7 +122,10 @@ def npy_to_milvus(MILVUS_TABLE):
             vectors_ids.append(int(location))
         print("locaton:", t)
         time_add_start = time.time()
+        print("vector size:", len(vectors))
+        print("input id size:", len(vectors_ids))
         status, ids = milvus.add_vectors(table_name=MILVUS_TABLE, records=vectors, ids=vectors_ids)
+        print("return id size:", len(ids))
         time_add_end = time.time()
         print(filename, " insert milvus time: ", time_add_end - time_add_start)                
         file_index = file_index + 1

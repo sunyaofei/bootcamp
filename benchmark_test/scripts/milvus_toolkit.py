@@ -173,6 +173,9 @@ def main():
             SERVER_PORT = int(opt_value)        
         elif opt_name == "--table":
             table_name = opt_value
+        elif opt_name == "--index_file_size":
+            global index_file_size
+            index_file_size = int(opt_value)          
         elif opt_name == "--dim":
             dim = int(opt_value)
         elif opt_name == "--index":

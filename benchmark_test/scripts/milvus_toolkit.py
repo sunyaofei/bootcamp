@@ -155,7 +155,7 @@ def main():
             sys.argv[1:],
             "chdsn",
             ["help", "table=", "dim=", "index=", "nq=", "show", "describe", "delete", "build", "drop_index", "server_version",
-             "client_version", "rows", "normal", "nprobe=", "has", "desc_index", "server=", "port="]
+             "client_version", "rows", "normal", "nprobe=", "has", "desc_index", "server=", "port=", "index_file_size="]
         )
     except getopt.GetoptError:
         print("Usage: python milvus_toolkit.py -q <nq> -k <topk> -c <table> -s")

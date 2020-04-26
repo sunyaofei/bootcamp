@@ -8,7 +8,7 @@ from service.load import do_load
 from service.search import do_search
 from service.count import do_count
 from service.delete import do_delete
-from service.theardpool import thread_runner
+from service.threadpool import thread_runner
 from indexer.index import milvus_client, create_table, insert_vectors, delete_table, search_vectors, create_index
 from flask_cors import CORS
 from flask import Flask, request, send_file, jsonify

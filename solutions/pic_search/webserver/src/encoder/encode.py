@@ -13,13 +13,13 @@ def feature_extract(database_path, model):
     names = []
     img_list = get_imlist(database_path)
     model = model
+    total = len(img_list)
     for i, img_path in enumerate(img_list):
         norm_feat = model.vgg_extract_feat(img_path)
         img_name = os.path.split(img_path)[1]
         feats.append(norm_feat)
         names.append(img_name.encode())
         current = i+1
-        total = len(img_list)
         cache['current'] = current
         cache['total'] = total
         print ("extracting feature from image No. %d , %d images in total" %(current, total))
